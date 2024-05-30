@@ -2,21 +2,19 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const path = require('path')
-const { logger } = require('./middleware/logger')
-const errorHandler = require('./middleware/errorHandler')
+//const { logger } = require('./middleware/logger')
+//const errorHandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
-const {logEvents} = require('./middleware/logger')
+//const {logEvents} = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
-
-console.log(process.env.PORT_ENV)
 
 connectDB();
 
-app.use(logger)// create middleware
+//app.use(logger)// create middleware
 app.use(cors(corsOptions))// browsers that restricts cross-origin HTTP requests.A web page can only make requests to the same origin (domain, protocol, and port) from which it was loaded.
 app.use(express.json())// build in middleware -> express.json()
 app.use(cookieParser())//This middleware is responsible for parsing cookies attached to the client request object and populating req.cookies with an object containing key-value pairs of the parsed cookies
@@ -41,7 +39,7 @@ app.all('*', (req, res) => {// find that url if provide url is not find "*" will
     }
 })
 
-app.use(errorHandler)// create middleware 
+//app.use(errorHandler)// create middleware 
 
 
 //app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
@@ -52,5 +50,5 @@ mongoose.connection.once('open', () => {
 
 mongoose.connection.on('error', err => {
     console.log(err)
-    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
+//    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
 })
